@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Navbar, Sidebar } from '@components/layout';
-import { Dashboard } from '@pages/Dashboard';
-import { Transactions } from '@pages/Transactions';
-import { useFinanceStore } from '@stores/financeStore';
+import { Navbar } from '@/components/layout/Navbar';
+import { Sidebar } from '@/components/layout/Sidebar';
+import { Dashboard } from '@/pages/Dashboard';
+import { Transactions } from '@/pages/Transactions';
+import { useFinanceStore } from '@/stores/financeStore';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -11,8 +12,7 @@ function App() {
   const [userId] = useState('demo_user_' + Date.now());
 
   useEffect(() => {
-    // Mock user login
-    if (!isAuthenticated) {
+    if (!isAuthenticated && !user) {
       setUser({
         id: userId,
         email: 'demo@financeflow.app',
@@ -25,7 +25,7 @@ function App() {
         updatedAt: new Date(),
       });
     }
-  }, []);
+  }, [user, isAuthenticated, setUser, userId]);
 
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
